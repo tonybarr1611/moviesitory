@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/server.ts",
     "build": "tsc",
-    "run:compiled": "node dist/index.js"
+    "run:compiled": "node dist/server.ts"
   },
   "keywords": [],
   "author": "",
