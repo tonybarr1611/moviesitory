@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { MovieService } from "../services/movieService";
+import { movieFindAllPayload } from "../utils/movieFindAll.model";
 
 const movieService = new MovieService();
-
 export class MovieController {
   async findByID(req: Request, res: Response) {
     try {
@@ -20,29 +20,8 @@ export class MovieController {
 
   async findAll(req: Request, res: Response) {
     try {
-      const page = parseInt(req.query.page as string) || 1;
-      const limit = parseInt(req.query.limit as string) || 10;
-      const search = req.query.search as string;
-      const genre = req.query.genre as string;
-      const year = req.query.year
-        ? parseInt(req.query.year as string)
-        : undefined;
-      const rating = req.query.rating
-        ? parseFloat(req.query.rating as string)
-        : undefined;
-      const sortBy = (req.query.sortBy as string) || "title";
-      const order = (req.query.order as "asc" | "desc") || "asc";
-
-      const movies = await movieService.findAll(
-        page,
-        limit,
-        search,
-        genre,
-        year,
-        rating,
-        sortBy,
-        order
-      );
+      const params = this.parseFindAllParams(req.query);
+      const movies = await movieService.findAll(params);
       res.json(movies);
     } catch (error) {
       console.log(error);
@@ -79,5 +58,18 @@ export class MovieController {
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
     }
+  }
+
+  private parseFindAllParams(query: any): movieFindAllPayload {
+    return {
+      page: parseInt(query.page as string) || 1,
+      limit: parseInt(query.limit as string) || 10,
+      search: query.search as string,
+      genre: query.genre as string,
+      year: query.year ? parseInt(query.year as string) : undefined,
+      popularity: query.rating ? parseFloat(query.rating as string) : undefined,
+      sortBy: (query.sortBy as string) || "title",
+      order: (query.order as "asc" | "desc") || "asc",
+    };
   }
 }

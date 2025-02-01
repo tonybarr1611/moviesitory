@@ -1,5 +1,6 @@
 import Movie, { IMovie } from "../models/movie.model";
 import Actor, { IActor } from "../models/actor.model";
+import { movieFindAllPayload } from "../utils/movieFindAll.model";
 
 Actor.countDocuments({});
 
@@ -17,33 +18,24 @@ export class MovieRepository {
   }
 
   //   Paginated find all
-  async findAll(
-    page: number = 1,
-    limit: number = 10,
-    search?: string,
-    genre?: string,
-    year?: number,
-    popularity?: number,
-    sortBy: string = "title",
-    order: "asc" | "desc" = "asc"
-  ) {
-    const skip = (page - 1) * limit;
+  async findAll(params: movieFindAllPayload) {
+    const skip = (params.page - 1) * params.limit;
     const query: any = {
-      ...(search && { title: { $regex: search, $options: "i" } }),
-      ...(year && {
+      ...(params.search && { title: { $regex: params.search, $options: "i" } }),
+      ...(params.year && {
         release_date: {
-          $gte: new Date(`${year}-01-01`),
-          $lte: new Date(`${year}-12-31`),
+          $gte: new Date(`${params.year}-01-01`),
+          $lte: new Date(`${params.year}-12-31`),
         },
       }),
-      ...(popularity && { popularity: { $gte: popularity } }),
+      ...(params.popularity && { popularity: { $gte: params.popularity } }),
     };
 
     // Consulta en MongoDB con filtros, orden y paginación
     const movies = await Movie.find(query)
-      .sort({ [sortBy]: order === "asc" ? 1 : -1 })
+      .sort({ [params.sortBy]: params.order === "asc" ? 1 : -1 })
       .skip(skip)
-      .limit(limit)
+      .limit(params.limit)
       .exec();
 
     // Obtener total de documentos que coinciden con el filtro
@@ -52,8 +44,8 @@ export class MovieRepository {
     return {
       movies,
       totalMovies,
-      totalPages: Math.ceil(totalMovies / limit),
-      currentPage: page,
+      totalPages: Math.ceil(totalMovies / params.limit),
+      currentPage: params.page,
     };
   }
 

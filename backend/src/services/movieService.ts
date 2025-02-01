@@ -1,4 +1,5 @@
 import { MovieRepository } from "../repositories/movieRepository";
+import { movieFindAllPayload } from "../utils/movieFindAll.model";
 
 const movieRepository = new MovieRepository();
 
@@ -7,26 +8,8 @@ export class MovieService {
     return await movieRepository.findByID(id);
   }
 
-  async findAll(
-    page: number,
-    limit: number,
-    search?: string,
-    genre?: string,
-    year?: number,
-    popularity?: number,
-    sortBy?: string,
-    order?: "asc" | "desc"
-  ) {
-    return await movieRepository.findAll(
-      page,
-      limit,
-      search,
-      genre,
-      year,
-      popularity,
-      sortBy,
-      order
-    );
+  async findAll(params: movieFindAllPayload) {
+    return await movieRepository.findAll(params);
   }
 
   async create(movie: any) {
