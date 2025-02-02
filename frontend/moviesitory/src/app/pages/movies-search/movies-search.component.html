@@ -1,0 +1,92 @@
+<div class="mb-5">
+  <div class="flex justify-between items-center px-10">
+    <h3 class="display-1 pt-10 text-color font-bold">Movies:</h3>
+    <p class="text-gray-400 pt-10">
+      Showing {{ (movies.currentPage - 1) * currentLimit + 1 }} -
+      {{ movies.currentPage * currentLimit }} of
+      {{ movies.totalMovies }} results
+    </p>
+  </div>
+  <div class="flex justify-center gap-4">
+    <!-- Filters Panel -->
+    <div class="w-70 h-full p-4 border rounded shadow-sm">
+      <form [formGroup]="filterForm" (ngSubmit)="updateSearch()">
+        <h4 class="mb-4 font-bold">Filters</h4>
+
+        <!-- Genre Filter -->
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label>Genre</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="genre"
+            placeholder="e.g. Drama"
+          />
+        </mat-form-field>
+
+        <!-- Year Filter -->
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label>Year</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="year"
+            placeholder="e.g. 2020"
+          />
+        </mat-form-field>
+
+        <!-- Popularity Filter -->
+        <mat-form-field appearance="fill" class="w-full mb-4">
+          <mat-label>Min Popularity</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="popularity"
+            placeholder="e.g. 80"
+          />
+        </mat-form-field>
+
+        <!-- Sort Options -->
+        <div class="mb-4 flex gap-2">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Sort By</mat-label>
+            <mat-select formControlName="sortBy">
+              <mat-option value="title">Title</mat-option>
+              <mat-option value="year">Year</mat-option>
+              <mat-option value="popularity">Popularity</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Order</mat-label>
+            <mat-select formControlName="order">
+              <mat-option value="asc">Asc</mat-option>
+              <mat-option value="desc">Desc</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" class="w-full">
+          Apply
+        </button>
+      </form>
+    </div>
+
+    <!-- Movies Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-{{ results }} gap-10 px-10">
+      <ng-container *ngFor="let movie of movies.movies; let i = index">
+        <app-card [data]="movie"></app-card>
+      </ng-container>
+    </div>
+  </div>
+  <div>
+    <mat-paginator
+      class="px-10 mr-10 mt-5 text-color"
+      [length]="movies.totalMovies"
+      [pageSize]="limit"
+      [pageSizeOptions]="[limit, 2 * limit, 3 * limit]"
+      (page)="pageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
