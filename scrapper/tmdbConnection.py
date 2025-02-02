@@ -7,6 +7,16 @@ BASE_URL = "https://api.themoviedb.org/3"
 POPULAR_MOVIES_URL = f"{BASE_URL}/discover/movie?sort_by=popularity.desc&api_key={API_KEY}&page="
 MOVIE_DETAILS_URL = f"{BASE_URL}/movie/{{}}/credits?api_key={API_KEY}"
 ACTOR_DETAILS_URL = f"{BASE_URL}/person/{{}}?api_key={API_KEY}"
+GENRES_URL = f"{BASE_URL}/genre/movie/list?api_key={API_KEY}"
+
+def fetch_genres():
+    response = requests.get(GENRES_URL)
+    if response.status_code == 200:
+        genres = {genre['id']: genre['name'] for genre in response.json()['genres']}
+        return genres
+    else:
+        print(f"Error fetching genres data")
+        return {}
 
 # Function to fetch popular movies from multiple pages
 def fetch_popular_movies(pages=5):
@@ -47,6 +57,8 @@ def fetch_movie_cast(movie_id):
 
 # Function to save movies and actors (this assumes you're saving them in MongoDB)
 def process_movies_and_actors(movies, db):
+    genres = fetch_genres()
+    existing_cast_ids = []
     existing_cast = []
     for movie in movies:
         print(f"Processing movie: {movie['title']}")
@@ -58,6 +70,7 @@ def process_movies_and_actors(movies, db):
             'overview': movie['overview'],
             'popularity': movie['popularity'],
             'release_date': movie['release_date'],
+            'genres' : [genres.get(genre_id, "") for genre_id in movie.get('genre_ids', [])],
             'cast': [],  # We'll add actors later
             'images': [f"https://image.tmdb.org/t/p/w500{movie.get('poster_path', "")}", f"https://image.tmdb.org/t/p/w500{movie.get('backdrop_path', "")}"]
         }
@@ -75,18 +88,27 @@ def process_movies_and_actors(movies, db):
                 'birthdate': actor.get('birthday', ''),
                 'pob': actor.get('place_of_birth', ''),
                 'gender': actor.get('gender', 0),
+                'movies': [movie['id']],
                 'popularity': actor.get('popularity', 0),
-                'images': [actor.get('profile_path', '')]
+                'images': [f"https://image.tmdb.org/t/p/w500{actor.get('profile_path', "")}"]
             }
             
             # Check that actor_data has no missing fields
             if not all(actor_data.values()):
                 continue
 
-            if not actor_data['id'] in existing_cast:
+            if not actor_data['id'] in existing_cast_ids:
                 # Save actor data
                 db.Actor.insert_one(actor_data)
-                existing_cast.append(actor_data['id'])
+                existing_cast_ids.append(actor_data['id'])
+                existing_cast.append(actor_data)
+            else:
+                # Search for the actor data in the existing_cast list, append the movie id to the actor's movies list
+                # and update the actor data in the database
+                for existing_actor in existing_cast:
+                    if existing_actor['id'] == actor_data['id']:
+                        existing_actor['movies'].append(movie['id'])
+                        db.Actor.update_one({'id': actor_data['id']}, {'$set': {'movies': existing_actor['movies']}})
 
             actor_ids.append(actor['id'])
 
