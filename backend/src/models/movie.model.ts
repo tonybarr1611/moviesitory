@@ -6,6 +6,7 @@ interface IMovie extends Document {
   overview: string;
   popularity: number;
   release_date: Date;
+  genres: string[];
   cast: number[];
   images: string[];
 }
@@ -17,6 +18,7 @@ const MovieSchema: Schema = new Schema(
     overview: { type: String, required: true },
     popularity: { type: Number, required: true },
     release_date: { type: Date, required: true },
+    genres: { type: [String], required: true },
     cast: { type: [Number], required: true, ref: "Actor" },
     images: { type: [String], required: true },
   },

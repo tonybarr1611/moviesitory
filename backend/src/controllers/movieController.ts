@@ -20,7 +20,8 @@ export class MovieController {
 
   async findAll(req: Request, res: Response) {
     try {
-      const params = this.parseFindAllParams(req.query);
+      console.log(req.query);
+      const params = parseFindAllParams(req.query);
       const movies = await movieService.findAll(params);
       res.json(movies);
     } catch (error) {
@@ -59,17 +60,19 @@ export class MovieController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
+}
 
-  private parseFindAllParams(query: any): movieFindAllPayload {
-    return {
-      page: parseInt(query.page as string) || 1,
-      limit: parseInt(query.limit as string) || 10,
-      search: query.search as string,
-      genre: query.genre as string,
-      year: query.year ? parseInt(query.year as string) : undefined,
-      popularity: query.rating ? parseFloat(query.rating as string) : undefined,
-      sortBy: (query.sortBy as string) || "title",
-      order: (query.order as "asc" | "desc") || "asc",
-    };
-  }
+function parseFindAllParams(query: any): movieFindAllPayload {
+  return {
+    page: parseInt(query.page as string) || 1,
+    limit: parseInt(query.limit as string) || 10,
+    search: query.search ? (query.search as string) : undefined,
+    genre: query.genre ? (query.genre as string) : undefined,
+    year: query.year ? parseInt(query.year as string) : undefined,
+    popularity: query.popularity
+      ? parseFloat(query.popularity as string)
+      : undefined,
+    sortBy: (query.sortBy as string) || "title",
+    order: (query.order as "asc" | "desc") || "asc",
+  };
 }

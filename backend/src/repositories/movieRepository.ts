@@ -28,6 +28,9 @@ export class MovieRepository {
           $lte: new Date(`${params.year}-12-31`),
         },
       }),
+      ...(params.genre && {
+        genres: { $elemMatch: { $regex: params.genre, $options: "i" } },
+      }),
       ...(params.popularity && { popularity: { $gte: params.popularity } }),
     };
 

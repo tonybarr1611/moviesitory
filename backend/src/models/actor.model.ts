@@ -7,6 +7,7 @@ interface IActor extends Document {
   birthdate: Date;
   pob: string;
   gender: number;
+  movies: number[];
   popularity: number;
   images: string[];
 }
@@ -19,6 +20,7 @@ const ActorSchema: Schema = new Schema(
     birthdate: { type: Date, required: true },
     pob: { type: String, required: true },
     gender: { type: Number, required: true },
+    movies: { type: [Number], required: true, ref: "Movie" },
     popularity: { type: Number, required: true },
     images: { type: [String], required: true },
   },
