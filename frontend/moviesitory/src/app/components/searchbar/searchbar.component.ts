@@ -6,6 +6,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MoviesitoryService } from '../../services/moviesitory.service';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-searchbar',
@@ -30,12 +32,23 @@ export class SearchbarComponent implements OnInit {
   selectedOption = 'all';
   searchTerm = '';
 
-  constructor(private moviesitoryService: MoviesitoryService) {}
+  constructor(
+    private moviesitoryService: MoviesitoryService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    try {
+      const path = window.location.pathname.split('/').reverse();
+      this.searchTerm = path[0];
+      this.selectedOption = path[1] ? path[1] : 'all';
+    } catch (error) {
+      console.log('Did not find search term in URL');
+    }
+  }
 
   public search(): void {
-    console.log(`searching ${this.searchTerm} in ${this.selectedOption}`);
+    window.location.href = `${this.selectedOption}/${this.searchTerm}`;
   }
 
   // async search(): Promise<void> {
