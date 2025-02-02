@@ -1,0 +1,20 @@
+.cover {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  background: var(--ipt-baseAlt-color);
+  transition: opacity 0.15s;
+}
+
+.cover:hover {
+  opacity: 0.7;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.card {
+  background: #1a1a1a !important;
+  align-content: space-evenly !important;
+}
