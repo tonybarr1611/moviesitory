@@ -1,0 +1,30 @@
+<mat-form-field class="mb-[-3%] w-30" appearance="fill">
+  <mat-label>Filter</mat-label>
+  <mat-select [(value)]="selectedOption">
+    @for (option of searchOptions; track option){
+    <mat-option value="{{ option.value }}">
+      <mat-icon>{{ option.icon }}</mat-icon>
+      {{ option.viewValue }}</mat-option
+    >
+    }
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="mb-[-3%] w-150" appearance="fill">
+  <mat-label>Search</mat-label>
+  <input
+    id="search"
+    matInput
+    placeholder="Search for movies or actors"
+    (keyup.enter)="search()"
+    [(ngModel)]="searchTerm"
+  />
+  <button
+    mat-icon-button
+    matSuffix
+    class="mr-2"
+    aria-label="Search"
+    (click)="search()"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>
