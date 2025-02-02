@@ -1,0 +1,25 @@
+<div class="mb-5">
+  <div class="flex justify-between items-center px-10">
+    <h3 class="display-1 pt-10 text-color font-bold">Actors:</h3>
+    <p class="text-gray-400 pt-10">
+      Showing {{ (actors.currentPage - 1) * currentLimit + 1 }} -
+      {{ actors.currentPage * currentLimit }} of
+      {{ actors.totalActors }} results
+    </p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-{{ results }} gap-10 pr-10 pl-20">
+    <ng-container *ngFor="let actor of actors.actors; let i = index">
+      <app-card [data]="actor"></app-card>
+    </ng-container>
+  </div>
+  <div>
+    <mat-paginator
+      class="px-10 mr-10 mt-5 text-color"
+      [length]="actors.totalActors"
+      [pageSize]="limit"
+      [pageSizeOptions]="[limit, 2 * limit, 3 * limit]"
+      (page)="pageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
