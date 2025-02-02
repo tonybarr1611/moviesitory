@@ -18,3 +18,7 @@
   background: #1a1a1a !important;
   align-content: space-evenly !important;
 }
+
+.mat-mdc-button:not(:disabled) {
+  color: #a684ff !important;
+}

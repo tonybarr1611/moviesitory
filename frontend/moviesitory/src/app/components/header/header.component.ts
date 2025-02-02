@@ -10,4 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  clickLogo(): void {
+    window.location.href = '';
+  }
+}
