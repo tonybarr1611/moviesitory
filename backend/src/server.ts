@@ -1,6 +1,7 @@
-import express from "express";
+import express, { Request } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import MovieRouter from "./routes/movieRoutes";
 import ActorRouter from "./routes/actorRoutes";
 
@@ -9,6 +10,7 @@ dotenv.config({ path: `${__dirname}/config/.env` });
 const app = express();
 
 app.use(express.json());
+app.use(cors<Request>());
 app.use("/api/movies", MovieRouter);
 app.use("/api/actors", ActorRouter);
 
