@@ -4,6 +4,12 @@ export class ActorRepository {
   async findByID(id: number) {
     return await Actor.findOne({
       id: id,
+    }).populate({
+      path: "movies",
+      model: "Movie",
+      localField: "movies",
+      foreignField: "id",
+      justOne: false,
     });
   }
 

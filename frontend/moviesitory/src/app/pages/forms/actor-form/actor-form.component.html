@@ -1,0 +1,137 @@
+<div class="my-10 w-[48vw] mx-auto">
+  <h3 class="display-1 pt-10 text-color font-bold">Actors:</h3>
+  <form class="w-[48vw] flex flex-col">
+    <mat-form-field class="w-[48vw]">
+      <mat-label>Name:</mat-label>
+      <input
+        matInput
+        [(ngModel)]="actor.name"
+        type="text"
+        name="Name"
+        id="name"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-[48vw]">
+      <mat-label>Biography</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="actor.biography"
+        name="Biography"
+        id="biography"
+      ></textarea>
+    </mat-form-field>
+    <div class="grid grid-cols-2 gap-x-10 w-[48vw]">
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Birthdate:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="actor.birthdate"
+          type="date"
+          name="Birthdate"
+          id="birthdate"
+        />
+      </mat-form-field>
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Place of birth:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="actor.pob"
+          type="text"
+          name="PlaceOfBirth"
+          id="place_of_birth"
+        />
+      </mat-form-field>
+    </div>
+    <div class="grid grid-cols-2 gap-10 w-[48vw]">
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Gender:</mat-label>
+        <mat-select [value]="actor.gender">
+          <mat-option [value]="1">Femenino</mat-option>
+          <mat-option [value]="2">Masculino</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Popularity:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="actor.popularity"
+          type="number"
+          name="Popularity"
+          id="popularity"
+        />
+      </mat-form-field>
+    </div>
+    <br />
+    <div class="flex flex-col">
+      <h5 class="text-color">Images</h5>
+      <ol class="list-decimal ml-10">
+        <li *ngFor="let image of actor.images">
+          <p (click)="removeImage(image)">{{ image }}</p>
+        </li>
+      </ol>
+      <mat-form-field class="w-[48vw]">
+        <mat-label>Image</mat-label>
+        <input
+          matInput
+          [(ngModel)]="image"
+          type="text"
+          name="Image"
+          id="image"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="mx-90 py-6 w-40 border"
+        (click)="addImage()"
+      >
+        Add image
+      </button>
+    </div>
+    <h5 class="text-color mt-3">Filmography</h5>
+    <ol class="list-decimal ml-10">
+      <li *ngFor="let movie of actor.movies">
+        <p (click)="removeMovie(movie)">
+          {{ getMovieName(movie) }} - {{ movie }}
+        </p>
+      </li>
+    </ol>
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="refreshMovies()"
+        type="text"
+        name="Search"
+        id="search"
+      />
+    </mat-form-field>
+    <div class="grid grid-cols-4 gap-10 px-10">
+      <ng-container *ngFor="let movie of movies.movies; let i = index">
+        <app-card
+          [data]="movie"
+          (sendID)="addMovie($event)"
+          [isAdd]="true"
+        ></app-card>
+      </ng-container>
+    </div>
+    <div>
+      <mat-paginator
+        class="px-10 mr-10 mt-5 text-color"
+        [length]="movies.totalMovies"
+        [pageSize]="limit"
+        [pageSizeOptions]="[limit, 2 * limit, 3 * limit]"
+        (page)="pageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+    <button
+      class="mx-30 mt-10 mb-20"
+      color="primary"
+      mat-raised-button
+      (click)="submit()"
+    >
+      Confirm
+    </button>
+  </form>
+</div>

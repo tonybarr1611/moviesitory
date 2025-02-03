@@ -40,8 +40,14 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
     try {
       const path = window.location.pathname.split('/').reverse();
-      this.searchTerm = path[0];
-      this.selectedOption = path[1] ? path[1] : 'all';
+      if (
+        path.includes('actors') ||
+        path.includes('movies') ||
+        path.includes('all')
+      ) {
+        this.searchTerm = path[0];
+        this.selectedOption = path[1] ? path[1] : 'all';
+      }
     } catch (error) {
       console.log('Did not find search term in URL');
     }

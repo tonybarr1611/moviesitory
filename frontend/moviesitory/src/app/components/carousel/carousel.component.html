@@ -1,0 +1,29 @@
+<div
+  id="carouselExampleControls"
+  class="relative max-w-[300px] w-full aspect-[2/3] overflow-hidden rounded-lg shadow-lg"
+>
+  <div class="w-full h-full">
+    <img
+      src="{{ getSlide() }}"
+      alt="slide"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <div class="absolute inset-0 flex items-center justify-between px-2">
+    <button
+      (click)="getPrev()"
+      mat-icon-button
+      class="bg-gray-100 bg-opacity-50 hover:bg-opacity-75 transition-colors"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      (click)="getNext()"
+      mat-icon-button
+      class="bg-gray-100 bg-opacity-50 hover:bg-opacity-75 transition-colors"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

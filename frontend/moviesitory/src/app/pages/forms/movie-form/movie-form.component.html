@@ -1,0 +1,120 @@
+<div class="my-10 w-[48vw] mx-auto">
+  <h3 class="display-1 pt-10 text-color font-bold">Movies:</h3>
+  <form class="w-[48vw] flex flex-col">
+    <mat-form-field class="w-[48vw]">
+      <mat-label>Title:</mat-label>
+      <input
+        matInput
+        [(ngModel)]="movie.title"
+        type="text"
+        name="Title"
+        id="title"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-[48vw]">
+      <mat-label>Overview:</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="movie.overview"
+        type="text"
+        name="Overview"
+        id="overview"
+      >
+      </textarea>
+    </mat-form-field>
+    <div class="grid grid-cols-2 gap-10 w-[48vw]">
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Popularity:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="movie.popularity"
+          type="number"
+          name="Popularity"
+          id="popularity"
+        />
+      </mat-form-field>
+      <mat-form-field class="w-[23vw]">
+        <mat-label>Release date:</mat-label>
+        <input
+          matInput
+          [(ngModel)]="movie.release_date"
+          type="date"
+          name="ReleaseDate"
+          id="release_date"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col">
+      <h5 class="text-color">Images</h5>
+      <ol class="list-decimal ml-10">
+        <li *ngFor="let image of movie.images">
+          <p (click)="removeImage(image)">{{ image }}</p>
+        </li>
+      </ol>
+      <mat-form-field>
+        <mat-label>Image</mat-label>
+        <input
+          matInput
+          [(ngModel)]="image"
+          type="text"
+          name="Image"
+          id="image"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="mx-90 py-6 w-40 border"
+        (click)="addImage()"
+      >
+        Add image
+      </button>
+    </div>
+    <h5 class="text-color mt-3">Cast</h5>
+    <ol class="list-decimal ml-10">
+      <li *ngFor="let actor of movie.cast">
+        <p (click)="removeCast(actor)">
+          {{ getCastName(actor) }} - {{ actor }}
+        </p>
+      </li>
+    </ol>
+
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="refreshActors()"
+        type="text"
+        name="Search"
+        id="search"
+      />
+    </mat-form-field>
+    <div class="grid grid-cols-4 gap-10 px-10">
+      <ng-container *ngFor="let actor of actors.actors; let i = index">
+        <app-card
+          [data]="actor"
+          (sendID)="addCast($event)"
+          [isAdd]="true"
+        ></app-card>
+      </ng-container>
+    </div>
+    <div>
+      <mat-paginator
+        class="px-10 mr-10 mt-5 text-color"
+        [length]="actors.totalActors"
+        [pageSize]="limit"
+        [pageSizeOptions]="[limit, 2 * limit, 3 * limit]"
+        (page)="pageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+    <button
+      class="mx-30 mt-10 mb-20"
+      color="primary"
+      mat-raised-button
+      (click)="submit()"
+    >
+      Confirm
+    </button>
+  </form>
+</div>

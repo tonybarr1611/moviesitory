@@ -5,7 +5,7 @@ export type Movie = {
   title: string;
   overview: string;
   popularity: number;
-  release_date: Date;
+  release_date: string;
   cast: number[];
   images: string[];
 };
@@ -15,7 +15,7 @@ export type MoviePopulated = {
   title: string;
   overview: string;
   popularity: number;
-  release_date: Date;
+  release_date: string;
   cast: Actor[];
   images: string[];
 };

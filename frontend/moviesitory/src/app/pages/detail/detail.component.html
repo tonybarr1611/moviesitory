@@ -1,0 +1,60 @@
+<div class="container mx-auto p-4">
+  <div class="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6">
+    <!-- Carousel Section -->
+    <div *ngIf="detail.images" class="flex justify-center">
+      <app-carousel [slides]="detail.images"></app-carousel>
+    </div>
+
+    <!-- Details Section -->
+    <div class="text-white">
+      <!-- Title & Year -->
+      <div class="flex flex-row justify-between">
+        <div>
+          <p class="text-lg text-gray-400">{{ detail.year }}</p>
+        </div>
+        <div>
+          <button mat-fab (click)="editDetail()">
+            <mat-icon class="mat-18">edit</mat-icon>
+          </button>
+          <button mat-fab (click)="deleteDetail()">
+            <mat-icon class="mat-18 ml-5" color="accent">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <h1 class="text-3xl font-bold">{{ detail.title }}</h1>
+
+      <!-- Popularity -->
+      <div class="flex justify-right items-center mb-4">
+        <mat-icon color="warn" class="mr-3">trending_up</mat-icon>
+        <p class="display-1 font-bold no-margin">
+          {{ detail.popularity * 0.5 | number : "1.1-1" }}
+        </p>
+      </div>
+
+      <!-- Description -->
+      <p class="mt-4 text-gray-300">{{ detail.description }}</p>
+
+      <!-- Related Items -->
+      <div *ngIf="detail.related.length > 0" class="mt-12">
+        <h3 class="text-color">Related:</h3>
+        <div class="grid grid-cols-4 gap-10 pr-10 pl-20">
+          <ng-container *ngFor="let data of pagedRelated">
+            <app-card [data]="data"></app-card>
+          </ng-container>
+        </div>
+
+        <!-- MatPaginator -->
+        <div>
+          <mat-paginator
+            class="px-10 mr-10 mt-5 text-color"
+            [length]="detail.related.length"
+            [pageSize]="4"
+            [pageSizeOptions]="[4, 8, 12]"
+            (page)="onPageChange($event)"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

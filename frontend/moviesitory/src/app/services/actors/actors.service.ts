@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import {
   Actor,
+  ActorPopulated,
   ActorRequestResponse,
   ActorSearchParams,
 } from '../../models/actor.model';
@@ -23,8 +24,8 @@ export class ActorsService {
     });
   }
 
-  public getActorById(id: string): Observable<Actor> {
-    return this.httpClient.get<Actor>(`${this.url}/actors/${id}`);
+  public getActorById(id: string): Observable<ActorPopulated> {
+    return this.httpClient.get<ActorPopulated>(`${this.url}/actors/${id}`);
   }
 
   public updateActor(actor: Actor) {

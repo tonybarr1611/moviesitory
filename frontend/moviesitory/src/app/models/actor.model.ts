@@ -1,12 +1,27 @@
+import { Movie } from './movie.model';
+
 export type Actor = {
   id: number;
   name: string;
   biography: string;
-  birthdate: Date;
+  birthdate: string;
   pob: string;
   gender: number;
   popularity: number;
   images: string[];
+  movies: number[];
+};
+
+export type ActorPopulated = {
+  id: number;
+  name: string;
+  biography: string;
+  birthdate: string;
+  pob: string;
+  gender: number;
+  popularity: number;
+  images: string[];
+  movies: Movie[];
 };
 
 export type ActorSearchParams = {
