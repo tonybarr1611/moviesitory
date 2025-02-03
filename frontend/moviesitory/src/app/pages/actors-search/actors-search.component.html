@@ -1,11 +1,13 @@
 <div class="mb-5">
   <div class="flex justify-between items-center px-10">
     <h3 class="display-1 pt-10 text-color font-bold">Actors:</h3>
-    <p class="text-gray-400 pt-10">
-      Showing {{ (actors.currentPage - 1) * currentLimit + 1 }} -
-      {{ actors.currentPage * currentLimit }} of
-      {{ actors.totalActors }} results
-    </p>
+    <div *ngIf="isAdmin()">
+      <p class="pt-10">
+        <button (click)="addActor()">
+          <mat-icon class="mat-18 mr-3">add_circle_outline</mat-icon>
+        </button>
+      </p>
+    </div>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-{{ results }} gap-10 pr-10 pl-20">
     <ng-container *ngFor="let actor of actors.actors; let i = index">

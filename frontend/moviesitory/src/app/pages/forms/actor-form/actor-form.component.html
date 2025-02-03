@@ -2,7 +2,7 @@
   <h3 class="display-1 pt-10 text-color font-bold">Actors:</h3>
   <form class="w-[48vw] flex flex-col">
     <mat-form-field class="w-[48vw]">
-      <mat-label>Name:</mat-label>
+      <mat-label class="text-color">Name:</mat-label>
       <input
         matInput
         [(ngModel)]="actor.name"
@@ -12,7 +12,7 @@
       />
     </mat-form-field>
     <mat-form-field class="w-[48vw]">
-      <mat-label>Biography</mat-label>
+      <mat-label class="text-color">Biography</mat-label>
       <textarea
         matInput
         [(ngModel)]="actor.biography"
@@ -22,7 +22,7 @@
     </mat-form-field>
     <div class="grid grid-cols-2 gap-x-10 w-[48vw]">
       <mat-form-field class="w-[23vw]">
-        <mat-label>Birthdate:</mat-label>
+        <mat-label class="text-color">Birthdate:</mat-label>
         <input
           matInput
           [(ngModel)]="actor.birthdate"
@@ -32,7 +32,7 @@
         />
       </mat-form-field>
       <mat-form-field class="w-[23vw]">
-        <mat-label>Place of birth:</mat-label>
+        <mat-label class="text-color">Place of birth:</mat-label>
         <input
           matInput
           [(ngModel)]="actor.pob"
@@ -44,14 +44,14 @@
     </div>
     <div class="grid grid-cols-2 gap-10 w-[48vw]">
       <mat-form-field class="w-[23vw]">
-        <mat-label>Gender:</mat-label>
+        <mat-label class="text-color">Gender:</mat-label>
         <mat-select [value]="actor.gender">
           <mat-option [value]="1">Femenino</mat-option>
           <mat-option [value]="2">Masculino</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="w-[23vw]">
-        <mat-label>Popularity:</mat-label>
+        <mat-label class="text-color">Popularity:</mat-label>
         <input
           matInput
           [(ngModel)]="actor.popularity"
@@ -70,7 +70,7 @@
         </li>
       </ol>
       <mat-form-field class="w-[48vw]">
-        <mat-label>Image</mat-label>
+        <mat-label class="text-color">Image</mat-label>
         <input
           matInput
           [(ngModel)]="image"
@@ -96,7 +96,7 @@
       </li>
     </ol>
     <mat-form-field>
-      <mat-label>Search</mat-label>
+      <mat-label class="text-color">Search</mat-label>
       <input
         matInput
         [(ngModel)]="searchTerm"

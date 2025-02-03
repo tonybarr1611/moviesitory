@@ -5,11 +5,13 @@ import { CardComponent } from '../../components/card/card.component';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { isAdmin } from '../../utils/admin';
 
 @Component({
   selector: 'actors-search',
   standalone: true,
-  imports: [CommonModule, CardComponent, MatPaginatorModule],
+  imports: [CommonModule, CardComponent, MatPaginatorModule, MatIconModule],
   templateUrl: './actors-search.component.html',
   styleUrl: './actors-search.component.scss',
 })
@@ -26,6 +28,8 @@ export class ActorsSearchComponent {
   currentLimit = this.limit;
   currentPage = 1;
 
+  readonly isAdmin = isAdmin;
+
   constructor(
     private moviesitoryService: MoviesitoryService,
     private route: ActivatedRoute
@@ -39,6 +43,10 @@ export class ActorsSearchComponent {
 
   ngOnInit(): void {
     this.updateSearch();
+  }
+
+  addActor() {
+    window.location.href = 'admin/actor/add';
   }
 
   pageChange(event: PageEvent) {

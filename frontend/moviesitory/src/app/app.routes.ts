@@ -5,6 +5,8 @@ import { ActorsSearchComponent } from './pages/actors-search/actors-search.compo
 import { DetailComponent } from './pages/detail/detail.component';
 import { MovieFormComponent } from './pages/forms/movie-form/movie-form.component';
 import { ActorFormComponent } from './pages/forms/actor-form/actor-form.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   {
@@ -44,19 +46,35 @@ export const routes: Routes = [
     component: DetailComponent,
   },
   {
-    path: 'admin/movie/add',
-    component: MovieFormComponent,
+    path: 'admin',
+    children: [
+      {
+        path: 'movie',
+        children: [
+          { path: 'add', component: MovieFormComponent },
+          { path: 'edit', component: MovieFormComponent },
+        ],
+      },
+      {
+        path: 'actor',
+        children: [
+          { path: 'add', component: ActorFormComponent },
+          { path: 'edit', component: ActorFormComponent },
+        ],
+      },
+    ],
   },
   {
-    path: 'admin/actor/add',
-    component: ActorFormComponent,
-  },
-  {
-    path: 'admin/movie/edit',
-    component: MovieFormComponent,
-  },
-  {
-    path: 'admin/actor/edit',
-    component: ActorFormComponent,
+    path: 'user',
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+    ],
   },
 ];

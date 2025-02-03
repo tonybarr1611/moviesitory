@@ -8,6 +8,7 @@ import { CardComponent } from '../../components/card/card.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { isAdmin } from '../../utils/admin';
 
 type Detail = {
   id: number;
@@ -48,6 +49,8 @@ export class DetailComponent implements OnInit {
   pagedRelated: (Actor | Movie)[] = [];
   page_size = 4;
   current_page = 0;
+
+  readonly isAdmin = isAdmin;
 
   constructor(
     private router: Router,

@@ -2,7 +2,7 @@
   <h3 class="display-1 pt-10 text-color font-bold">Movies:</h3>
   <form class="w-[48vw] flex flex-col">
     <mat-form-field class="w-[48vw]">
-      <mat-label>Title:</mat-label>
+      <mat-label class="text-color">Title:</mat-label>
       <input
         matInput
         [(ngModel)]="movie.title"
@@ -12,7 +12,7 @@
       />
     </mat-form-field>
     <mat-form-field class="w-[48vw]">
-      <mat-label>Overview:</mat-label>
+      <mat-label class="text-color">Overview:</mat-label>
       <textarea
         matInput
         [(ngModel)]="movie.overview"
@@ -24,7 +24,7 @@
     </mat-form-field>
     <div class="grid grid-cols-2 gap-10 w-[48vw]">
       <mat-form-field class="w-[23vw]">
-        <mat-label>Popularity:</mat-label>
+        <mat-label class="text-color">Popularity:</mat-label>
         <input
           matInput
           [(ngModel)]="movie.popularity"
@@ -34,7 +34,7 @@
         />
       </mat-form-field>
       <mat-form-field class="w-[23vw]">
-        <mat-label>Release date:</mat-label>
+        <mat-label class="text-color">Release date:</mat-label>
         <input
           matInput
           [(ngModel)]="movie.release_date"
@@ -52,7 +52,7 @@
         </li>
       </ol>
       <mat-form-field>
-        <mat-label>Image</mat-label>
+        <mat-label class="text-color">Image</mat-label>
         <input
           matInput
           [(ngModel)]="image"
@@ -79,7 +79,7 @@
     </ol>
 
     <mat-form-field>
-      <mat-label>Search</mat-label>
+      <mat-label class="text-color">Search</mat-label>
       <input
         matInput
         [(ngModel)]="searchTerm"

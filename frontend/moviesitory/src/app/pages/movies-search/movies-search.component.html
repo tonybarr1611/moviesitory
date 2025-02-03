@@ -1,11 +1,13 @@
 <div class="mb-5">
   <div class="flex justify-between items-center px-10">
     <h3 class="display-1 pt-10 text-color font-bold">Movies:</h3>
-    <p class="text-gray-400 pt-10">
-      Showing {{ (movies.currentPage - 1) * currentLimit + 1 }} -
-      {{ movies.currentPage * currentLimit }} of
-      {{ movies.totalMovies }} results
-    </p>
+    <div *ngIf="isAdmin()">
+      <p class="pt-10">
+        <button (click)="addMovie()">
+          <mat-icon class="mat-18 mr-3">add_circle_outline</mat-icon>
+        </button>
+      </p>
+    </div>
   </div>
   <div class="flex justify-center gap-4">
     <!-- Filters Panel -->
@@ -15,7 +17,7 @@
 
         <!-- Genre Filter -->
         <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Genre</mat-label>
+          <mat-label class="text-color">Genre</mat-label>
           <input
             type="text"
             matInput
@@ -26,7 +28,7 @@
 
         <!-- Year Filter -->
         <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Year</mat-label>
+          <mat-label class="text-color">Year</mat-label>
           <input
             matInput
             type="number"
@@ -37,7 +39,7 @@
 
         <!-- Popularity Filter -->
         <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Min Popularity</mat-label>
+          <mat-label class="text-color">Min Popularity</mat-label>
           <input
             matInput
             type="number"
@@ -49,7 +51,7 @@
         <!-- Sort Options -->
         <div class="mb-4 flex gap-2">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Sort By</mat-label>
+            <mat-label class="text-color">Sort By</mat-label>
             <mat-select formControlName="sortBy">
               <mat-option value="title">Title</mat-option>
               <mat-option value="year">Year</mat-option>
@@ -58,7 +60,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Order</mat-label>
+            <mat-label class="text-color">Order</mat-label>
             <mat-select formControlName="order">
               <mat-option value="asc">Asc</mat-option>
               <mat-option value="desc">Desc</mat-option>

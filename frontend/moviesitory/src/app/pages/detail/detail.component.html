@@ -12,7 +12,7 @@
         <div>
           <p class="text-lg text-gray-400">{{ detail.year }}</p>
         </div>
-        <div>
+        <div *ngIf="isAdmin()">
           <button mat-fab (click)="editDetail()">
             <mat-icon class="mat-18">edit</mat-icon>
           </button>

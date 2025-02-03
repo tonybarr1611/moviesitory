@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { isAdmin } from '../../utils/admin';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'movies-search',
@@ -23,6 +25,7 @@ import { ActivatedRoute } from '@angular/router';
     MatButtonModule,
     ReactiveFormsModule,
     MatPaginatorModule,
+    MatIconModule,
   ],
   templateUrl: './movies-search.component.html',
   styleUrl: './movies-search.component.scss',
@@ -40,6 +43,8 @@ export class MoviesSearchComponent implements OnInit {
   currentPage = 1;
   currentLimit = this.limit;
   filterForm!: FormGroup;
+
+  readonly isAdmin = isAdmin;
 
   constructor(
     private moviesitoryService: MoviesitoryService,
@@ -62,6 +67,10 @@ export class MoviesSearchComponent implements OnInit {
       order: ['asc'],
     });
     this.updateSearch();
+  }
+
+  addMovie() {
+    window.location.href = 'admin/movie/add';
   }
 
   pageChange(event: PageEvent) {

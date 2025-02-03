@@ -4,7 +4,7 @@
 >
   <img src="assets/logo.png" alt="" class="w-20" (click)="clickLogo()" />
   <app-searchbar></app-searchbar>
-  <button mat-button class="px-2">
-    <mat-icon>person_outline</mat-icon> Sign In
+  <button mat-button class="px-2" (click)="handleSign()">
+    <mat-icon>person_outline</mat-icon> Sign {{ isLoggedIn ? "Out" : "In" }}
   </button>
 </header>
