@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import MovieRouter from "./routes/movieRoutes";
 import ActorRouter from "./routes/actorRoutes";
+import UserRouter from "./routes/userRoutes";
 
 dotenv.config({ path: `${__dirname}/config/.env` });
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors<Request>());
 app.use("/api/movies", MovieRouter);
 app.use("/api/actors", ActorRouter);
+app.use("/api/user", UserRouter);
 
 mongoose
   .connect(process.env.MONGO_URI || "", { dbName: "moviesitory" })
