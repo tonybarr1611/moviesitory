@@ -76,7 +76,7 @@ export class MovieFormComponent implements OnInit {
     } catch (error) {
       console.log('Windows does not exist');
     }
-    if (this.movie.id != 0) {
+    if (this.movie.id !== 0 && this.movie.id !== undefined) {
       this.isNew = false;
     }
     console.log(this.isNew);

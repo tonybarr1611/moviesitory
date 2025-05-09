@@ -88,7 +88,7 @@ export class ActorFormComponent implements OnInit {
         });
       });
     } catch (error) {}
-    if (this.actor.id != 0) {
+    if (this.actor.id !== 0 && this.actor.id !== undefined) {
       this.isNew = false;
     }
     this.refreshMovies();
@@ -147,6 +147,7 @@ export class ActorFormComponent implements OnInit {
   submit(): void {
     this.actor.images = this.actor.images.filter((image) => image !== '');
     if (this.isNew) {
+      this.actor.id = Math.floor(Math.random() * 100000000);
       this.moviesitoryService
         .getActorsService()
         .addActor(this.actor)
